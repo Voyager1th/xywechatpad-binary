@@ -1,25 +1,19 @@
 import sys
 import platform
+import os
 from setuptools import setup, find_packages
 
-# 平台检测
-system = platform.system().lower()
-machine = platform.machine().lower()
+# 从环境变量获取当前构建平台
+target_platform = os.environ.get('TARGET_PLATFORM', '').lower()
 
-# 确定当前平台的二进制路径
-BINARY_PATH = ""
-if system == "linux":
-    if machine in ["x86_64", "amd64"]:
-        BINARY_PATH = "binaries/linux_x64/XYBotWechatPad"
-    elif machine == "aarch64":
-        BINARY_PATH = "binaries/linux_aarch64/XYBotWechatPad"
-elif system == "darwin":  # macOS
-    if machine == "arm64":
-        BINARY_PATH = "binaries/macos_arm64/XYBotWechatPad"
-    elif machine == "x86_64":
-        BINARY_PATH = "binaries/macos_x64/XYBotWechatPad"
-elif system == "windows":
-    BINARY_PATH = "binaries/win_x64/XYBotWechatPad.exe"
+# 平台到二进制路径的映射
+PLATFORM_BINARIES = {
+    'linux_x86_64': ['binaries/linux_x64/XYBotWechatPad'],
+    'linux_aarch64': ['binaries/linux_aarch64/XYBotWechatPad'],
+    'macos_x86_64': ['binaries/macos_x64/XYBotWechatPad'],
+    'macos_arm64': ['binaries/macos_arm64/XYBotWechatPad'],
+    'win_amd64': ['binaries/win_x64/XYBotWechatPad.exe']
+}
 
 # 版本检查
 if sys.version_info < (3, 11):
@@ -35,7 +29,9 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/HenryXiaoYang/xywechatpad-binary",
     packages=find_packages(),
-    package_data={"xywechatpad_binary": [BINARY_PATH]},
+    package_data={
+        "xywechatpad_binary": PLATFORM_BINARIES.get(target_platform, [])
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: POSIX :: Linux",

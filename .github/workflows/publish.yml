@@ -39,12 +39,29 @@ jobs:
 
       - name: Build wheel
         shell: bash
+        env:
+          TARGET_PLATFORM: ${{ matrix.platform }}_${{ matrix.arch || 'x64' }}  # 例如manylinux2014_x86_64_x64
         run: |
-          if [[ "${{ matrix.platform }}" == manylinux* ]]; then
-            python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
-          else
-            python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
-          fi
+          # 转换平台标识到简写格式
+          case "${{ matrix.platform }}" in
+            manylinux2014_x86_64*)
+              export TARGET_PLATFORM=linux_x86_64
+              ;;
+            manylinux2014_aarch64*)
+              export TARGET_PLATFORM=linux_aarch64
+              ;;
+            macosx_10_15_x86_64*)
+              export TARGET_PLATFORM=macos_x86_64
+              ;;
+            macosx_14_0_arm64*)
+              export TARGET_PLATFORM=macos_arm64
+              ;;
+            win_amd64*)
+              export TARGET_PLATFORM=win_amd64
+              ;;
+          esac
+          
+          python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
 
       - name: Build sdist
         run: |
