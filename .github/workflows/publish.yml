@@ -42,18 +42,19 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheels
+          name: wheel-${{ matrix.platform }}
           path: dist/*
 
   publish:
     needs: build
     runs-on: ubuntu-22.04
     steps:
-      - name: Download Artifacts
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          name: wheels
           path: dist
+          pattern: wheel-*
+          merge-multiple: true
 
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
