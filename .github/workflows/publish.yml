@@ -9,12 +9,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-13, windows-2022]
+        os: [ubuntu-latest, ubuntu-latest-arm64, macos-13, macos-latest, windows-2022]
         include:
           - os: ubuntu-latest
             platform: manylinux2014_x86_64
             arch: x64
-          - os: ubuntu-latest
+          - os: ubuntu-latest-arm64
             platform: manylinux2014_aarch64
             arch: arm64
           - os: macos-13
@@ -38,6 +38,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
 
       - name: Build wheel
+        shell: bash
         run: |
           if [[ "${{ matrix.platform }}" == manylinux* ]]; then
             python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
