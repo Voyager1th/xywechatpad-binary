@@ -13,6 +13,7 @@ jobs:
         include:
           - os: ubuntu-latest
             platform: manylinux2014_x86_64
+            arch: x64
           - os: ubuntu-latest
             platform: manylinux2014_aarch64
             arch: arm64
@@ -38,13 +39,23 @@ jobs:
 
       - name: Build wheel
         run: |
-          python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3 --abi-tag none
+          if [[ "${{ matrix.platform }}" == manylinux* ]]; then
+            python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
+          else
+            python setup.py bdist_wheel --plat-name ${{ matrix.platform }} --python-tag py3
+          fi
+
+      - name: Build sdist
+        run: |
+          python setup.py sdist
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-${{ matrix.platform }}-${{ matrix.arch || 'x64' }}
-          path: dist/*
+          name: dist-${{ matrix.platform }}-${{ matrix.arch || 'x64' }}
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
 
   publish:
     needs: build
