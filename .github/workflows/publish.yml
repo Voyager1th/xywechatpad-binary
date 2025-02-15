@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  build-and-publish:
+  build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,10 +39,26 @@ jobs:
       run: |
         python setup.py bdist_wheel --plat-name ${{ matrix.platform }}
 
-    - name: Publish to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
       with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-        skip-existing: true
-      if: github.event_name == 'release' 
+        name: wheels
+        path: dist/*
+
+  publish:
+    needs: build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: wheels
+          path: dist
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          skip-existing: true
+        if: github.event_name == 'release'
