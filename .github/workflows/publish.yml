@@ -46,18 +46,23 @@ jobs:
           case "${{ matrix.platform }}" in
             manylinux2014_x86_64*)
               export TARGET_PLATFORM=linux_x86_64
+              BIN_PATH="binaries/linux_x64/XYWechatPad"
               ;;
             manylinux2014_aarch64*)
               export TARGET_PLATFORM=linux_aarch64
+              BIN_PATH="binaries/linux_aarch64/XYWechatPad"
               ;;
             macosx_10_15_x86_64*)
               export TARGET_PLATFORM=macos_x86_64
+              BIN_PATH="binaries/macos_x64/XYWechatPad"
               ;;
             macosx_14_0_arm64*)
               export TARGET_PLATFORM=macos_arm64
+              BIN_PATH="binaries/macos_arm64/XYWechatPad"
               ;;
             win_amd64*)
               export TARGET_PLATFORM=win_amd64
+              BIN_PATH="binaries/win_x64/XYWechatPad.exe"
               ;;
           esac
           

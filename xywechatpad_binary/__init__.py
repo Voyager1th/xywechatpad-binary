@@ -16,17 +16,17 @@ def copy_binary(target_dir: Path) -> Path:
     # 平台到二进制路径的映射
     BIN_MAP = {
         "linux": {
-            "x86_64": "binaries/linux_x64/XYBotWechatPad",
-            "amd64": "binaries/linux_x64/XYBotWechatPad",
-            "aarch64": "binaries/linux_aarch64/XYBotWechatPad"
+            "x86_64": "binaries/linux_x64/XYWechatPad",
+            "amd64": "binaries/linux_x64/XYWechatPad",
+            "aarch64": "binaries/linux_aarch64/XYWechatPad"
         },
         "darwin": {  # macOS
-            "x86_64": "binaries/macos_x64/XYBotWechatPad",
-            "arm64": "binaries/macos_arm64/XYBotWechatPad"
+            "x86_64": "binaries/macos_x64/XYWechatPad",
+            "arm64": "binaries/macos_arm64/XYWechatPad"
         },
         "windows": {
-            "x86_64": "binaries/win_x64/XYBotWechatPad.exe",
-            "amd64": "binaries/win_x64/XYBotWechatPad.exe"
+            "x86_64": "binaries/win_x64/XYWechatPad.exe",
+            "amd64": "binaries/win_x64/XYWechatPad.exe"
         }
     }
 

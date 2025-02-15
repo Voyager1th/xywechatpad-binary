@@ -8,11 +8,11 @@ target_platform = os.environ.get('TARGET_PLATFORM', '').lower()
 
 # 平台到二进制路径的映射
 PLATFORM_BINARIES = {
-    'linux_x86_64': ['binaries/linux_x64/XYBotWechatPad'],
-    'linux_aarch64': ['binaries/linux_aarch64/XYBotWechatPad'],
-    'macos_x86_64': ['binaries/macos_x64/XYBotWechatPad'],
-    'macos_arm64': ['binaries/macos_arm64/XYBotWechatPad'],
-    'win_amd64': ['binaries/win_x64/XYBotWechatPad.exe']
+    'linux_x86_64': ['binaries/linux_x64/XYWechatPad'],
+    'linux_aarch64': ['binaries/linux_aarch64/XYWechatPad'],
+    'macos_x86_64': ['binaries/macos_x64/XYWechatPad'],
+    'macos_arm64': ['binaries/macos_arm64/XYWechatPad'],
+    'win_amd64': ['binaries/win_x64/XYWechatPad.exe']
 }
 
 # 版本检查
@@ -21,7 +21,7 @@ if sys.version_info < (3, 11):
 
 setup(
     name="xywechatpad-binary",
-    version="0.3",
+    version="0.4",
     author="HenryXiaoYang",
     author_email="henryyang666@hotmail.com",
     description="XYBotV2 Binary Distribution",
