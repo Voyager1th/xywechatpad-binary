@@ -46,6 +46,15 @@ def copy_binary(target_dir: Path) -> Path:
     # 构建目标路径
     dest_path = target_dir / src_path.name
 
+    # 如果目标文件已存在且内容相同，直接返回
+    if dest_path.exists():
+        # 验证文件内容是否一致
+        if dest_path.stat().st_size == src_path.stat().st_size:
+            return dest_path
+            
+        # 文件存在但大小不同则删除旧文件
+        dest_path.unlink()
+
     # 执行复制
     shutil.copy2(src_path, dest_path)
     
