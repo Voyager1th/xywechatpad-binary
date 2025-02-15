@@ -21,7 +21,7 @@ if sys.version_info < (3, 11):
 
 setup(
     name="xywechatpad-binary",
-    version="0.2",
+    version="0.3",
     author="HenryXiaoYang",
     author_email="henryyang666@hotmail.com",
     description="XYBotV2 Binary Distribution",
