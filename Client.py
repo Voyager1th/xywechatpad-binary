@@ -56,7 +56,7 @@ class BanProtection(Exception):
 
 class Client:
     def __init__(self,opt:str=None,handler=None):
-        self.config = {"id": "wxid_vvtsesifwm3y22", "devicename": "Chloe Davis's Pad", "deviceid": "499c63dac553c817e0ec5b3a263d9010","host":"192.168.1.2","port":"9000","time":100}
+        self.config = {"id": "wxid_xxxxxx", "devicename": "", "deviceid": "","host":"192.168.1.2","port":"9000","time":100}
         self.optfile = "./config.json"
         self.host = "192.168.1.2"
         self.port = "9000"
@@ -69,7 +69,7 @@ class Client:
         self.devicename = None
         self.time = 0
         self.delay = 0.5
-        self.executable_path = "./core"
+        self.executable_path = "./XYWechatPad"
         self.handler=handler
         self.starttime=time.time()
         self.target=None
@@ -122,7 +122,7 @@ class Client:
         self.phone = self.config.get("bindmobile",None)
         self.time = self.config.get("time",0)
         self.delay = self.config.get("delay",0.5)
-        self.executable_path = self.config.get("core","./core")
+        self.executable_path = self.config.get("core","./XYWechatPad")
         self.deviceid = self.config.get("deviceid",Client.createid())
         self.devicename = self.config.get("devicename",Client.createname())
 
@@ -1034,7 +1034,7 @@ class Client:
 #测试
 class ClientManager:
     def __init__(self):
-        self.client=Client("home/administrator/Documents/wechat.json",None)
+        self.client=Client("./wechat.json",None)
 
     async def start(self):
         await self.client.start(count=20)
