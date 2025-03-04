@@ -392,13 +392,6 @@ class Client:
                 delay = now - last
                 self.time += delay
                 last = now
-                if self.time > 120:
-                    await self.logout()
-                    await asyncio.sleep(10)
-                    await self.logon()
-                    await asyncio.sleep(5)
-                    self.time = 0
-
                 rs = await self.send_sync()
                 if None == rs:
                     await asyncio.sleep(self.delay)
