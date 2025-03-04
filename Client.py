@@ -1027,7 +1027,7 @@ class Client:
 #测试
 class ClientManager:
     def __init__(self):
-        self.client=Client("./wechat.json",None)
+        self.client=Client("./wechat.json",self)
 
     async def start(self):
         await self.client.start(count=20)
@@ -1039,7 +1039,7 @@ async def main():
     c = Client()
     if not await c.alive():
         print("XYWechatPad -p 9000 -m debug -rh 127.0.0.1 -rp 6379 -rdb 0 -rpwd  ")
-        return
+        
     await c.start(block=True)
 
 if __name__ == "__main__":
